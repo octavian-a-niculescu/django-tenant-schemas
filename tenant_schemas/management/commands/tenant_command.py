@@ -8,9 +8,10 @@ class Command(InteractiveTenantOption, BaseCommand):
     requires_system_checks = []
     help = "Wrapper around django commands for use with an individual tenant"
 
-    def handle(self, command, schema_name, *args, **options):
+    def handle(self, command, command_args, *args, **options):
         tenant = self.get_tenant_from_options_or_interactive(
-            schema_name=schema_name, **options
+            schema_name=command_args[1], **options
         )
+        del command_args[0:2]
         connection.set_tenant(tenant)
-        call_command(command, *args, **options)
+        call_command(command, command_args, *args, **options)
