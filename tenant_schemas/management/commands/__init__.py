@@ -105,9 +105,6 @@ class BaseTenantCommand(BaseCommand):
 class InteractiveTenantOption(object):
     def add_arguments(self, parser):
         parser.add_argument("command")
-        parser.add_argument(
-            "-s", "--schema", dest="schema_name", help="specify tenant schema"
-        )
         parser.add_argument("command_args", nargs=argparse.REMAINDER)
 
     def get_tenant_from_options_or_interactive(self, **options):
